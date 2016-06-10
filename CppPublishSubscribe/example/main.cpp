@@ -5,8 +5,9 @@
 int main(int argc, const char * argv[]) {
     // insert code here...
     
-    PubSubImpl psi;
+    PubSubImpl psi("psi1");
     PublishableString * s = new PublishableString("String Hello");
+    PubSubImpl psi2("psi2");
     psi.publish(s);
     
     

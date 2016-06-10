@@ -13,10 +13,12 @@ namespace cps {
     
 class PubSubInterface : public Subscriber, public Publisher{
     static std::unordered_map<std::string, PubSubManager*> pubSubManagers;
-    
+    bool loopback;
 public:
+    PubSubInterface(bool allowLoopback);
     void subscribe(const std::string & datatype);
     void publish(PublishableData * data);
+    bool allowPublishLoopback();
 };
 
 }

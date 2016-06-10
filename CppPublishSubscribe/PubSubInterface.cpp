@@ -27,7 +27,15 @@ void PubSubInterface::publish(cps::PublishableData * data){
 
     if(manit != pubSubManagers.end()){
         PubSubManager * man = (*manit).second;
-        man->broadcastData(data);
+        man->broadcastData(data, this);
     }
     
+}
+
+PubSubInterface::PubSubInterface(bool allowLoopback){
+    loopback = allowLoopback;
+}
+
+bool PubSubInterface::allowPublishLoopback(){
+    return loopback;
 }

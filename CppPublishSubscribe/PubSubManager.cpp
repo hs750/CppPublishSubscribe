@@ -7,8 +7,17 @@ void PubSubManager::addSubscriber(Subscriber * subsciber){
     subscribers.insert(subsciber);
 }
 
-void PubSubManager::broadcastData(PublishableData * data){
+void PubSubManager::broadcastData(PublishableData * data, Publisher * sender){
     for(auto sub : subscribers){
-        sub->receive(data);
+        bool send = true;
+        if(Publisher * pubsub = dynamic_cast<Publisher*>(sub)){
+            if(pubsub == sender){
+                send = sender->allowPublishLoopback();
+            }
+        }
+        
+        if(send){
+            sub->receive(data);
+        }
     }
 }
